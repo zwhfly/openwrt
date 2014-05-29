@@ -202,7 +202,14 @@ enable_broadcom() {
 		case "$htmode" in
 			HT40-)	chanspec=$(printf 0x%x%x%02x $band 0xe $(($channel - 2))); channel=;;
 			HT40+)	chanspec=$(printf 0x%x%x%02x $band 0xd $(($channel + 2))); channel=;;
-			HT20)	chanspec=$(printf 0x%x%x%02x $band 0xb $channel); channel=;;
+			HT40)
+				if [ "$channel" -lt 7 ]; then
+					chanspec=$(printf 0x%x%x%02x $band 0xd $(($channel + 2))); channel=;
+				else
+					chanspec=$(printf 0x%x%x%02x $band 0xe $(($channel - 2))); channel=;
+				fi
+			;;
+			HT20)   chanspec=$(printf 0x%x%x%02x $band 0xb $channel); channel=;;
 			*) ;;
 		esac
 	}
