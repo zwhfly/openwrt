@@ -450,9 +450,10 @@ detect_broadcom() {
 config wifi-device  wl${i}
 	option type     broadcom
 	option channel  ${channel:-11}
+	option hwmode   11ng
 
-	# REMOVE THIS LINE TO ENABLE WIFI:
-	option disabled 1
+	# THIS LINE DISABLES WIFI:
+	# option disabled 1
 
 config wifi-iface
 	option device   wl${i}
